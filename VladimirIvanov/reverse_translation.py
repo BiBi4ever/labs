@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+from typing import *
+from itertools import product
+
+
 aatocodons = {'F': ['UUU', 'UUC'],
               'L': ['CUU', 'CUC', 'UUA', 'CUA', 'UUG', 'CUG'],
               'I': ['AUU', 'AUC', 'AUA'],
@@ -20,12 +24,11 @@ aatocodons = {'F': ['UUU', 'UUC'],
               'C': ['UGU', 'UGC'],
               'R': ['CGU', 'CGC', 'CGA', 'AGA', 'CGG', 'AGG'],
               'G': ['GGU', 'GGC', 'GGA', 'GGG'],
-              'W': ['UGG']
-}
+              'W': ['UGG']}
 
 
-def reverse_transctibe(peptide):
-    from itertools import product
-    codons = [aatocodons[aa] for aa in peptide]
-    return [''.join(strand) for strand in product(*codons)]
+def reverse_transctibe(peptide: AnyStr) -> Sequence[AnyStr]:
+    """ Returns all possible nucleotide strings, which transcribes to specified peptide sequence
+    """
+    return [''.join(strand) for strand in product(*[aatocodons[aa] for aa in peptide])]
 
